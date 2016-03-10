@@ -6,11 +6,17 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 16:26:23 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/10 17:18:51 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/10 18:01:57 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
+
+void	ft_putstr(char *str)
+{
+	while (*str)
+		write (1, str++, 1);
+}
 
 char		find_minimum(char a, char b, char c)
 {
@@ -29,25 +35,20 @@ void	ft_extract_map(t_map *map, char **tab)
 	int		fd;
 	int		i;
 	int		j;
-	int		size;
-	int		lus;
 
 	i = 0;
-	size = ft_get_size(map->nb_lines) + 3;
 	fd = open(map->file_name, O_RDONLY);
-	read(fd, buf, size + 1);
-	buf[size] = '\0';
-	while((lus = read(fd, buf, map->nb_columns)))
+	read(fd, buf, ft_get_size(map->nb_lines) + 4);
+	buf[ft_get_size(map->nb_lines) + 3] = '\0';
+	while((read(fd, buf, map->nb_columns)))
 	{
 		tab[i] = (char *)malloc(sizeof(char) * map->nb_columns);
 		j = 0;
 		while (j < map->nb_columns)
 		{
-			buf[lus] = '\0';
 			tab[i][j] = buf[j];
 			j++;
 		}
-		printf("\n%d = %s", i, tab[i]);
 		read(fd, buf, 1);
 		i++;
 	}
@@ -125,8 +126,12 @@ void	exec(t_map *map, t_tab pos, char **tab)
 		i++;
 	}
 	printf("==>  tab4  <==\n");
-	for (int k = 0; k < map->nb_lines; k++)
-		printf("%s\n", tab[k]);
+	k = 0;
+	while (k < map->nb_lines)
+	{
+		ft_putstr(tab[k++]);
+		ft_putstr("\n");
+	}
 }
 
 int		ft_get_size(int nbr)
@@ -155,7 +160,7 @@ t_map	*ft_create_map(char *file)
 	int		i;
 	int		nb_lus;
 	int		count;
-	char	buffer[SIZE_BUF + 1];
+	char	buffer[SIZE_BUF];
 
 	map = (t_map *)malloc(sizeof(t_map));
 	if (map)
@@ -173,22 +178,13 @@ t_map	*ft_create_map(char *file)
 			count = ++i;
 			while (buffer[i] != '\n')
 				i++;
-			map->nb_columns =  i - count;
+			map->nb_columns = i - count;
 			close (fd);
 		}
 	}
 	return (map);
 }
 
-void	ft_wait(int	nb_secondes)
-{
-	int		a = 1;
-	while (a)
-	{
-		sleep(nb_secondes);
-		a = 0;
-	}
-}
 void	print_config(t_map *map)
 {
 
@@ -197,7 +193,6 @@ void	print_config(t_map *map)
 	printf("\n\tChar obstacle ==> %c", map->obstacle);
 	printf("\n\tChar plein ==> %c", map->plein);
 	printf("\n\tnom du fichier ==> \"%s\"\n\n", map->file_name);
-	ft_wait(2);
 
 }
 
@@ -208,8 +203,6 @@ int main(int ac, char **av)
 	t_tab placing;
 	int i = 0;
 	int j = 0;
-	int k = 0;
-
 	if (ac >= 2)
 	{
 		while (*(++av))
@@ -218,15 +211,6 @@ int main(int ac, char **av)
 			tab = (char **)malloc(sizeof(char *) * map->nb_lines);
 			print_config(map);
 			ft_extract_map(map, tab);
-			printf("\nNombre de colonnes = %d", map->nb_columns);
-			i = 0;
-			printf("\n==> tab <==\n");
-			while (i < map->nb_lines)
-			{
-				printf("%d - %s\n", i, tab[i]);
-				i++;
-			}
-			ft_wait(4);
 			i = 0;
 			while(i < map->nb_lines)
 			{
@@ -241,29 +225,10 @@ int main(int ac, char **av)
 				}
 				i++;
 			}
-			printf("\n==> tab2 <==\n");
-			k = 0;
-			while(k < map->nb_lines)
-			{
-				printf("%s\n", tab[k]);
-				k++;
-			}
 			ft_adding(tab, map);
-			printf("\n==> tab3 <==\n");
-			k = 0;
-			while(k < map->nb_lines)
-			{
-				printf("%s\n", tab[k]);
-				k++;
-			}
 			placing = check_tab(map, tab);
 
-			printf("\nplacing\n");
-			printf("ligne = %d\n", placing.line);
-			printf("colonne = %d\n", placing.column);
-			printf("taille carre = %c\n", placing.data);
 			exec(map, placing, tab);
-
 		}
 	}
 	return (0);
