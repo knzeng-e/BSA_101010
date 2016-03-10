@@ -6,7 +6,7 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 16:26:23 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/09 21:38:20 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/10 16:17:04 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,38 +23,42 @@ char		find_minimum(char a, char b, char c)
 	return (a);
 }
 
-char	**ft_extraxt_map(t_map *map)
+void	ft_extract_map(t_map *map, char **tab)
 {
-	char	**tab;
-	char	buff[map->nb_columns];
+	char	buf[map->nb_columns];
 	int		fd;
 	int		i;
+	int		j;
 	int		lus;
 
-	tab = (char **)malloc(sizeof(char *) * map->nb_lines * map->nb_columns);
-	fd = open(map->file_name, O_RDONLY);
-	read(fd, buff, 5);
 	i = 0;
-	while (i < map->nb_lines)
+	fd = open(map->file_name, O_RDONLY);
+	read(fd, buf, 5);
+	buf[4] = '\0';
+	while((lus = read(fd, buf, map->nb_columns)))
 	{
-		lus = read(fd, buff, map->nb_columns);
-		buff[lus] = '\0';
-		strcpy(tab[i++], buff);
-		read(fd, buff, 1);
+		tab[i] = (char *)malloc(sizeof(char) * map->nb_columns);
+		j = 0;
+		while (j < map->nb_columns)
+		{
+			buf[lus] = '\0';
+			tab[i][j] = buf[j];
+			j++;
+		}
+		printf("\n%d = %s", i, tab[i]);
+		read(fd, buf, 1);
+		i++;
 	}
-	close(fd);
-	return (tab);
+	close (fd);
 }
 
-t_tab	check_tab(t_map *map)
+t_tab	check_tab(t_map *map, char **tab)
 {
 	t_tab	place;
-	char	**tab;
 	place.data = 0;
 	int i = 0;
 	int j;
 
-	tab = map->ft_extract_map(map);
 	while (i < map->nb_lines)
 	{
 		j = 0;
@@ -93,26 +97,14 @@ void	ft_adding(char **tab, t_map *map)
 	}
 }
 
-void	exec(char *file_name, t_map *map, t_tab pos)
+void	exec(t_map *map, t_tab pos, char **tab)
 {
-	int fd;
-	char **tab;
-	char buf[map->nb_columns];
 	int i = 0;
 	int j = 0;
 
-	tab = map->ft_extract_map(map);
-	fd = open(file_name, O_RDONLY);
-	while(read(fd, &buf, map->nb_columns))
-	{
-		buf[map->nb_columns] = '\0';
-		strcpy(tab[i], buf);
-		i++;
-	}
 	int k = pos.line - (pos.data - '0') + 1;
 	int l = pos.column - (pos.data - '0') + 1;
-	printf("%d, %d", k, l );
-	close (fd);
+	printf("\n%d, %d", k, l );
 	i = 0;
 	while (i < map->nb_lines)
 	{
@@ -121,6 +113,11 @@ void	exec(char *file_name, t_map *map, t_tab pos)
 		{
 			if ((k <= i && i <= pos.line) && (l <= j && j <= pos.column))
 				tab[i][j] = 'x';
+			else
+				if (tab[i][j] == '0')
+					tab[i][j] = map->obstacle;
+				else
+					tab[i][j] = map->vide;
 			j++;
 		}
 		i++;
@@ -188,14 +185,8 @@ void	print_config(t_map *map)
 
 int main(int ac, char **av)
 {
-	int fd;
-	int	nb_cols;
-	int	nb_lines;
-	int	lus;
 	t_map	*map;
-	//char	tab[9][28];
 	char	**tab;
-	char	*buf;
 	t_tab placing;
 	int i = 0;
 	int j = 0;
@@ -206,44 +197,22 @@ int main(int ac, char **av)
 		while (*(++av))
 		{
 			map = ft_create_map(*av);
+			tab = (char **)malloc(sizeof(char *) * map->nb_lines);
 			print_config(map);
-			tab = (char **)malloc(sizeof(char *) * map->nb_lines * map->nb_columns);
-			//tab = map->ft_extract_map(map);
-			//printf("\nTAB => %s >>", tab[0]); SEGFAULT::revoir ft_extract
-			nb_cols = map->nb_columns;
-			nb_lines = map->nb_lines;
-			buf = (char *)malloc(sizeof(char) * nb_cols);
-			fd = open(*av, O_RDONLY);
-			read(fd, buf, 4);
-			buf[4] = '\0';
-			printf("\nPremiere ligne ==> %s\n", buf);
-			read(fd, buf, 1);
-			while((lus = read(fd, buf, nb_cols)))
-			{
-				tab[i] = (char *)malloc(sizeof(char) * nb_cols);
-				tab[i] = buf;
-				buf[lus] = '\0';
-				printf("\n%d = %s", i, tab[i]);
-			//	printf("\n%d = %s", i, buf);
-				read(fd, buf, 1);
-				//strcpy(tab[i], buf);
-				i++;
-			}
-				read(fd, buf, 1);
-			close (fd);
+			ft_extract_map(map, tab);
 			i = 0;
 			printf("\n==> tab <==\n");
-			while(i < nb_lines)
+			while (i < map->nb_lines)
 			{
 				printf("%d - %s\n", i, tab[i]);
 				i++;
 			}
-	ft_wait(4);
+			ft_wait(4);
 			i = 0;
-			while(i < nb_lines)
+			while(i < map->nb_lines)
 			{
 				j = 0;
-				while(j < nb_cols)
+				while(j < map->nb_columns)
 				{
 					if (tab[i][j] == '.')
 						tab[i][j] = '1';
@@ -255,7 +224,7 @@ int main(int ac, char **av)
 			}
 			printf("\n==> tab2 <==\n");
 			k = 0;
-			while(k < nb_lines)
+			while(k < map->nb_lines)
 			{
 				printf("%s\n", tab[k]);
 				k++;
@@ -263,18 +232,18 @@ int main(int ac, char **av)
 			ft_adding(tab, map);
 			printf("\n==> tab3 <==\n");
 			k = 0;
-			while(k < nb_lines)
+			while(k < map->nb_lines)
 			{
 				printf("%s\n", tab[k]);
 				k++;
 			}
-			placing = check_tab(map);
+			placing = check_tab(map, tab);
 
-			printf("placing\n");
+			printf("\nplacing\n");
 			printf("ligne = %d\n", placing.line);
 			printf("colonne = %d\n", placing.column);
 			printf("taille carre = %c\n", placing.data);
-			exec(*av, map, placing);
+			exec(map, placing, tab);
 
 		}
 	}
