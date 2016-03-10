@@ -1,2 +1,4 @@
-# BSA_101010
-Feat_Mathieu
+# BSQ_101010
+
+	* Mathieu Moullec
+	* Kevin Nzeng

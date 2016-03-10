@@ -6,7 +6,7 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 16:26:23 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/10 16:17:04 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/10 17:18:51 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ void	ft_extract_map(t_map *map, char **tab)
 	int		fd;
 	int		i;
 	int		j;
+	int		size;
 	int		lus;
 
 	i = 0;
+	size = ft_get_size(map->nb_lines) + 3;
 	fd = open(map->file_name, O_RDONLY);
-	read(fd, buf, 5);
-	buf[4] = '\0';
+	read(fd, buf, size + 1);
+	buf[size] = '\0';
 	while((lus = read(fd, buf, map->nb_columns)))
 	{
 		tab[i] = (char *)malloc(sizeof(char) * map->nb_columns);
@@ -127,12 +129,22 @@ void	exec(t_map *map, t_tab pos, char **tab)
 		printf("%s\n", tab[k]);
 }
 
+int		ft_get_size(int nbr)
+{
+	if (nbr < 10)
+		return (1);
+	return (1 + ft_get_size(nbr / 10));
+}
+
 void	ft_initialize(char *file, t_map *map, char *buffer)
 {
-	map->nb_lines = atoi(&buffer[0]);
-	map->vide = buffer[1];
-	map->obstacle = buffer[2];
-	map->plein = buffer[3];
+	int	size;
+
+	map->nb_lines = atoi(buffer);
+	size = ft_get_size(map->nb_lines);
+	map->vide = *(buffer + size);
+	map->obstacle = *(buffer + size + 1);
+	map->plein = *(buffer + size + 2);
 	map->file_name = file;
 }
 
@@ -140,6 +152,7 @@ t_map	*ft_create_map(char *file)
 {
 	t_map	*map;
 	int		fd;
+	int		i;
 	int		nb_lus;
 	int		count;
 	char	buffer[SIZE_BUF + 1];
@@ -147,15 +160,20 @@ t_map	*ft_create_map(char *file)
 	map = (t_map *)malloc(sizeof(t_map));
 	if (map)
 	{
+		i = 0;
 		count = 0;
 		fd = open(file, O_RDONLY);
 		if (fd != -1)
 		{
-			nb_lus = read(fd, buffer, 5);
+			nb_lus = read(fd, buffer, SIZE_BUF);
+			buffer[nb_lus] = '\0';
 			ft_initialize(file, map, buffer);
-			while (read(fd, buffer, 1) && *buffer != '\n' && ++count)
-				;
-			map->nb_columns = count;
+			while (buffer[i] != '\n')
+				i++;
+			count = ++i;
+			while (buffer[i] != '\n')
+				i++;
+			map->nb_columns =  i - count;
 			close (fd);
 		}
 	}
@@ -200,6 +218,7 @@ int main(int ac, char **av)
 			tab = (char **)malloc(sizeof(char *) * map->nb_lines);
 			print_config(map);
 			ft_extract_map(map, tab);
+			printf("\nNombre de colonnes = %d", map->nb_columns);
 			i = 0;
 			printf("\n==> tab <==\n");
 			while (i < map->nb_lines)

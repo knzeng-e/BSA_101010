@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:24:14 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/10 16:01:16 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/10 17:21:50 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct	s_plateau
 	char		**contenu;
 }				t_map;
 
+int				ft_get_size(int nbr);
 char			find_minimum(char a, char b, char c);
 t_tab			check_tab(t_map *map, char **tab);
 void			ft_adding(char **tab, t_map *map);
