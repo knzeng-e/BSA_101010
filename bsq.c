@@ -6,7 +6,7 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/08 16:26:23 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/10 18:01:57 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/10 19:12:16 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_putstr(char *str)
 		write (1, str++, 1);
 }
 
-char		find_minimum(char a, char b, char c)
+char	find_minimum(char a, char b, char c)
 {
 	if (a <= b && a <= c)
 		return (a);
@@ -93,10 +93,23 @@ void	ft_adding(char **tab, t_map *map)
 		while (j < map->nb_columns)
 		{
 			if (tab[i][j] != '0')
-				tab[i][j] = 1 + (find_minimum(tab[i-1][j], tab[i][j-1], tab[i-1][j-1]));
+				tab[i][j] = 1 + (find_minimum(tab[i-1][j], tab[i][j-1], \
+							tab[i-1][j-1]));
 			j++;
 		}
 		i++;
+	}
+}
+
+void	ft_print_map(t_map *map, char **tab)
+{
+	int	k;
+
+	k = 0;
+	while (k < map->nb_lines)
+	{
+		ft_putstr(tab[k++]);
+		ft_putstr("\n");
 	}
 }
 
@@ -107,7 +120,6 @@ void	exec(t_map *map, t_tab pos, char **tab)
 
 	int k = pos.line - (pos.data - '0') + 1;
 	int l = pos.column - (pos.data - '0') + 1;
-	printf("\n%d, %d", k, l );
 	i = 0;
 	while (i < map->nb_lines)
 	{
@@ -125,13 +137,7 @@ void	exec(t_map *map, t_tab pos, char **tab)
 		}
 		i++;
 	}
-	printf("==>  tab4  <==\n");
-	k = 0;
-	while (k < map->nb_lines)
-	{
-		ft_putstr(tab[k++]);
-		ft_putstr("\n");
-	}
+	ft_print_map(map, tab);
 }
 
 int		ft_get_size(int nbr)
@@ -185,50 +191,46 @@ t_map	*ft_create_map(char *file)
 	return (map);
 }
 
-void	print_config(t_map *map)
+void	ft_resolve(t_map *map, char **tab, t_tab placing)
 {
+	int i;
+	int j;
 
-	printf("\n\n *** CONFIGURATION DE LA MAP ***\n\tNombre de lignes ==> %d", map->nb_lines);
-	printf("\n\tChar vide ==> %c", map->vide);
-	printf("\n\tChar obstacle ==> %c", map->obstacle);
-	printf("\n\tChar plein ==> %c", map->plein);
-	printf("\n\tnom du fichier ==> \"%s\"\n\n", map->file_name);
+	ft_extract_map(map, tab);
+	i = 0;
+	while(i < map->nb_lines)
+	{
+		j = 0;
+		while(j < map->nb_columns)
+		{
+			if (tab[i][j] == '.')
+				tab[i][j] = '1';
+			else
+				tab[i][j] = '0';
+			j++;
+		}
+		i++;
+	}
+	ft_adding(tab, map);
+	placing = check_tab(map, tab);
+
+	exec(map, placing, tab);
 
 }
 
-int main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	t_map	*map;
 	char	**tab;
 	t_tab placing;
-	int i = 0;
-	int j = 0;
+
 	if (ac >= 2)
 	{
 		while (*(++av))
 		{
 			map = ft_create_map(*av);
 			tab = (char **)malloc(sizeof(char *) * map->nb_lines);
-			print_config(map);
-			ft_extract_map(map, tab);
-			i = 0;
-			while(i < map->nb_lines)
-			{
-				j = 0;
-				while(j < map->nb_columns)
-				{
-					if (tab[i][j] == '.')
-						tab[i][j] = '1';
-					else
-						tab[i][j] = '0';
-					j++;
-				}
-				i++;
-			}
-			ft_adding(tab, map);
-			placing = check_tab(map, tab);
-
-			exec(map, placing, tab);
+			ft_resolve(map, tab, placing);
 		}
 	}
 	return (0);
