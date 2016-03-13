@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:10:05 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/12 05:10:38 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/13 09:07:57 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 t_tab	check_tab(t_map *map, char **tab)
 {
 	t_tab	place;
-	place.data = 0;
-	int i = 0;
-	int j;
+	int		i;
+	int		j;
 
+	place.data = 0;
+	i = 0;
 	while (i < map->nb_lines)
 	{
 		j = 0;
