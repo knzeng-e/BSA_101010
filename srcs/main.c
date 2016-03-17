@@ -5,44 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/08 16:26:23 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/13 08:43:30 by knzeng-e         ###   ########.fr       */
+/*   Created: 2016/03/14 23:03:22 by mmoullec          #+#    #+#             */
+/*   Updated: 2016/03/17 19:58:42 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-int	ft_check_errors(t_map *map)
-{
-	if ((ft_check_first_line(map) < 0))
-		return (MAP_ERROR);
-	return (MAP_OK);
-}
-
 int	main(int ac, char **av)
 {
 	t_map	*map;
 	t_tab	placing;
+	int		fd;
+	int		i;
+	int		ret;
 
-	if (ac >= 2)
+	i = 1;
+	while (i == ac || i + 1 <= ac)
 	{
-		while (*(++av))
+		map = malloc(sizeof(t_map));
+		fd = ((ac-- == 1) ? 1 : open(av[i++], O_RDONLY));
+		map = ft_check_map(fd);
+		if (ft_check_first_line(map) > 0)
 		{
-			ft_putstr("\n===> ");
-			ft_putstr(*av);
-			ft_putstr(" <===\n");
-			map = ft_create_map(*av);
-			map->contenu = (char **)malloc(sizeof(char *) * map->nb_lines);
-			if (ft_check_first_line(map) > 0)
-			{
-				if (ft_resolve(map, map->contenu, placing) > 0)
-					;
-				else
-					ft_putstr("map error\n");
-			}
-			else
+			ret = ft_resolve(map, map->contenu, placing);
+			if (ret < 0)
 				ft_putstr("map error\n");
 		}
+		else
+			ft_putstr("map error\n");
+		free(map);
+		close(fd);
 	}
 	return (0);
 }

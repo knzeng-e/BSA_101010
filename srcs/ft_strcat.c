@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_map.c                                    :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:16:04 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/17 19:36:51 by knzeng-e         ###   ########.fr       */
+/*   Created: 2016/03/09 17:40:08 by mmoullec          #+#    #+#             */
+/*   Updated: 2016/03/14 23:33:35 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-t_map	*ft_create_map(t_map *map, char *file)
+int		ft_strlen(char *s)
 {
-	int	i;
-	int	count;
+	int i;
 
 	i = 0;
-	count = 0;
-	ft_initialize("aa", map, file);
-	if (file[0] != 0)
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strcat(char *s1, char *s2)
+{
+	int i;
+	int j;
+
+	i = ft_strlen(s1);
+	j = 0;
+	while (s2[j])
 	{
-		while (file[i++] != '\n')
-			;
-		count = ++i;
-		while (file[i++] != '\n')
-			;
-		map->nb_columns = i - count;
+		s1[i + j] = s2[j];
+		j++;
 	}
-	return (map);
+	s1[i + j] = '\0';
+	return (s1);
 }

@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:12:06 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/13 09:01:16 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/16 01:49:53 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,8 @@ void	ft_print_map(t_map *map, char **tab)
 
 	k = 0;
 	while (k < map->nb_lines)
+	{
 		ft_putstr(tab[k++]);
+		ft_putstr("\n");
+	}
 }

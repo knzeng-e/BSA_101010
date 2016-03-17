@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:13:25 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/13 09:24:11 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/17 16:42:55 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exec(t_map *map, t_tab pos, char **tab)
 		while (j < map->nb_columns)
 		{
 			if ((k <= i && i <= pos.line) && (l <= j && j <= pos.column))
-				tab[i][j++] = 'x';
+				tab[i][j++] = map->plein;
 			else
 			{
 				if (tab[i][j] == '0')

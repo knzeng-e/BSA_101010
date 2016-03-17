@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:14:59 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/12 05:15:22 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/17 19:20:12 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_initialize(char *file, t_map *map, char *buffer)
 {
 	int	size;
 
-	map->nb_lines = atoi(buffer);
+	map->nb_lines = ft_atoi(buffer);
 	size = ft_get_size(map->nb_lines);
 	map->vide = *(buffer + size);
 	map->obstacle = *(buffer + size + 1);
