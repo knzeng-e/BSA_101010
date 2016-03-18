@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcat.c                                        :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/09 17:40:08 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/18 03:26:23 by knzeng-e         ###   ########.fr       */
+/*   Created: 2016/03/18 03:27:41 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/18 03:28:56 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-char	*ft_strcat(char *s1, char *s2)
+int	ft_strlen(char *str)
 {
-	int i;
-	int j;
-
-	i = ft_strlen(s1);
-	j = 0;
-	while (s2[j])
-	{
-		s1[i + j] = s2[j];
-		j++;
-	}
-	s1[i + j] = '\0';
-	return (s1);
+	if (!(*str))
+		return (0);
+	return (1 + ft_strlen(++str));
 }

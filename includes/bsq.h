@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:24:14 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/17 18:57:57 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/18 03:27:08 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_plateau
 }				t_map;
 
 int				ft_get_size(int nbr);
+int				ft_strlen(char *str);
 int				ft_atoi(char *str);
 int				ft_check_empty(t_map *map);
 int				ft_check_first_line(t_map *map);
