@@ -6,7 +6,7 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 22:52:50 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/17 19:34:21 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/18 19:41:18 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_map	*ft_check_map(int fd)
 	char	*rend;
 	char	buf[2];
 
+	if (fd == -1)
+		return (NULL);
 	rend = (char *)malloc(sizeof(char) * SIZE_BUF);
 	*rend = '\0';
 	map = (t_map *)malloc(sizeof(t_map));

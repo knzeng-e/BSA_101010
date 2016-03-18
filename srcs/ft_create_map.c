@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:16:04 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/17 19:36:51 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/18 18:02:11 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_map	*ft_create_map(t_map *map, char *file)
 
 	i = 0;
 	count = 0;
-	ft_initialize("aa", map, file);
+	ft_initialize("FILE", map, file);
 	if (file[0] != 0)
 	{
 		while (file[i++] != '\n')

@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:24:14 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/18 03:27:08 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/18 22:05:06 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,11 @@
 # define MAP_ERROR -6
 # define MAP_OK 3
 
-
-
 typedef struct	s_tab
 {
-	int line;
-	int column;
-	char data;
+	int			line;
+	int			column;
+	char		data;
 }				t_tab;
 
 typedef struct	s_plateau
@@ -78,5 +76,4 @@ char			**ft_split_whitespaces(char *str);
 t_map			*ft_check_map(int fd);
 char			*ft_strcat(char *s1, char *s2);
 int				ft_isspace(char c);
-
 #endif
