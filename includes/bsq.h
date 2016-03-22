@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:24:14 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/18 22:05:06 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/22 19:35:46 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_tab
 {
 	int			line;
 	int			column;
+	int			data_i;
 	char		data;
 }				t_tab;
 
@@ -49,6 +50,7 @@ typedef struct	s_plateau
 	char		obstacle;
 	char		plein;
 	char		**contenu;
+	int			**tempon;
 }				t_map;
 
 int				ft_get_size(int nbr);
@@ -62,10 +64,12 @@ int				ft_extract_map(t_map *map);
 int				ft_resolve(t_map *map, char **tab, t_tab placing);
 int				ft_invalid_content(char c, t_map *map);
 char			find_minimum(char a, char b, char c);
+int				find_minimum2(int a, int b, int c);
 void			ft_putstr(char *str);
 void			ft_initialize(char *file, t_map *map, char *buffer);
 void			ft_adding(char **tab, t_map *map);
 void			ft_print_map(t_map *map, char **tab);
+void			ft_print_map2(t_map *map);
 void			exec(t_map *map, t_tab pos, char **tab);
 t_map			ft_get_map(char *file_name);
 t_map			*ft_create_map(t_map *map, char *file);

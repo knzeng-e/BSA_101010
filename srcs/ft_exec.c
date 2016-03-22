@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:13:25 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/17 16:42:55 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/22 19:43:06 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_init(int *k, int *l, t_tab *pos)
 {
-	*k = pos->line - (pos->data - '0') + 1;
-	*l = pos->column - (pos->data - '0') + 1;
+	*k = pos->line - (pos->data_i) + 1;
+	*l = pos->column - (pos->data_i) + 1;
 }
 
 void	exec(t_map *map, t_tab pos, char **tab)

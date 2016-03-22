@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_map.c                                    :+:      :+:    :+:   */
+/*   ft_find_minimum2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:16:04 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/22 19:48:34 by knzeng-e         ###   ########.fr       */
+/*   Created: 2016/03/22 18:38:23 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/22 18:39:02 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-t_map	*ft_create_map(t_map *map, char *file)
+int	find_minimum2(int a, int b, int c)
 {
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	ft_initialize("FILE", map, file);
-	if (file[0] != 0)
-	{
-		while (file[i] && file[i] != '\n')
-			i++;
-		count = ++i;
-		while (file[i] && file[i] != '\n')
-			i++;
-		map->nb_columns = i - count;
-	}
-	return (map);
+	if (a <= b && a <= c)
+		return (a);
+	else if (b <= c && b <= a)
+		return (b);
+	else if (c <= a && c <= b)
+		return (c);
+	return (a);
 }
