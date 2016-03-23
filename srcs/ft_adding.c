@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:11:05 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/22 19:43:40 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/23 03:52:07 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_adding(char **tab, t_map *map)
 		{
 			if (tab[i][j] != '0')
 				map->tempon[i][j] = 1 + (find_minimum2(map->tempon[i - 1][j], \
-							map->tempon[i][j - 1], map->tempon[i -1][j - 1]));
+							map->tempon[i][j - 1], map->tempon[i - 1][j - 1]));
 			j++;
 		}
 		i++;

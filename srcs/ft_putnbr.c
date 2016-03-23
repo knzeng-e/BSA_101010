@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_map.c                                     :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:12:06 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 03:52:40 by knzeng-e         ###   ########.fr       */
+/*   Created: 2016/03/22 22:44:12 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/23 04:17:02 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-void	ft_print_map(t_map *map, char **tab)
+void	ft_putnbr(int n)
 {
-	int	k;
-
-	k = 0;
-	while (k < map->nb_lines)
+	if (n < 0)
 	{
-		ft_putstr(tab[k++]);
-		ft_putstr("\n");
+		ft_putchar('-');
+		if (n == -2147483648)
+		{
+			n = -8;
+			ft_putnbr(214748364);
+		}
+		n *= -1;
 	}
+	if (n >= 10)
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
+	else
+		ft_putchar(n + '0');
 }

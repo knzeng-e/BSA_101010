@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_map.c                                     :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:12:06 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 03:52:40 by knzeng-e         ###   ########.fr       */
+/*   Created: 2016/03/23 04:16:00 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/23 04:16:51 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-void	ft_print_map(t_map *map, char **tab)
+void	ft_putchar(char c)
 {
-	int	k;
-
-	k = 0;
-	while (k < map->nb_lines)
-	{
-		ft_putstr(tab[k++]);
-		ft_putstr("\n");
-	}
+	write (1, &c, 1);
 }

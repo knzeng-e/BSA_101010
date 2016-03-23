@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 18:59:07 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/22 19:05:59 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/23 04:17:57 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ void	ft_print_map2(t_map *map)
 		j = 0;
 		while (j < map->nb_columns)
 		{
-			printf("%d",map->tempon[k][j++]);
+			ft_putnbr(map->tempon[k][j++]);
 		}
-		printf("\n");
+		ft_putchar('\n');
 		k++;
-		//ft_putstr("\n");
 	}
 }

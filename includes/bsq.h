@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:24:14 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/22 19:35:46 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/23 04:15:35 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int				ft_invalid_content(char c, t_map *map);
 char			find_minimum(char a, char b, char c);
 int				find_minimum2(int a, int b, int c);
 void			ft_putstr(char *str);
+void			ft_putchar(char c);
+void			ft_putnbr(int n);
 void			ft_initialize(char *file, t_map *map, char *buffer);
 void			ft_adding(char **tab, t_map *map);
 void			ft_print_map(t_map *map, char **tab);
