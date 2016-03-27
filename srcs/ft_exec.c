@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:13:25 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/22 19:43:06 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:08:50 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	exec(t_map *map, t_tab pos, char **tab)
 				tab[i][j++] = map->plein;
 			else
 			{
-				if (tab[i][j] == '0')
+				if (tab[i][j] == 'o')
 					tab[i][j++] = map->obstacle;
 				else
 					tab[i][j++] = map->vide;

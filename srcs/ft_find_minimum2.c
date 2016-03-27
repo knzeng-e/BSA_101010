@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/22 18:38:23 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/22 18:39:02 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:21:16 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	find_minimum2(int a, int b, int c)
 		return (a);
 	else if (b <= c && b <= a)
 		return (b);
-	else if (c <= a && c <= b)
+	else
 		return (c);
-	return (a);
 }

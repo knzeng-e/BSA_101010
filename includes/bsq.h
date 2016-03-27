@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:24:14 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 04:15:35 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:27:18 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 
 # define SIZE_BUF 4096
+# define IMPOSSIBLE_MALLOC 0
 # define INVALID_FIRST_LINE_SIZE -1
 # define VALID_FIRST_LINE_SIZE 1
 # define INVALID_MAP_CONTENT -2
@@ -69,7 +70,7 @@ void			ft_putstr(char *str);
 void			ft_putchar(char c);
 void			ft_putnbr(int n);
 void			ft_initialize(char *file, t_map *map, char *buffer);
-void			ft_adding(char **tab, t_map *map);
+void			ft_adding(t_map *map);
 void			ft_print_map(t_map *map, char **tab);
 void			ft_print_map2(t_map *map);
 void			exec(t_map *map, t_tab pos, char **tab);

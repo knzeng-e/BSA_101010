@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:08:59 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/17 19:24:08 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:21:24 by mmoullec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,10 @@ int	ft_extract_map(t_map *map)
 		{
 			if ((j < map->nb_columns && (map->contenu[i][j]) == '\0') ||\
 					!(ft_is_valid_content((map->contenu[i][j]), map)))
-			{
 				return (INVALID_MAP_CONTENT);
-			}
 		}
 	}
 	if (map->contenu[i - 1][j] != '\0')
-	{
 		return (INVALID_LINE_NUMBER);
-	}
 	return (VALID_MAP_CONTENT);
 }

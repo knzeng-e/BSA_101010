@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:14:59 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/18 04:40:49 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/27 08:14:22 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_get_size(int nbr)
 	return (1 + ft_get_size(nbr / 10));
 }
 
-char	*ft_extract_size(char *fst_line)
+int		ft_extract_size(char *fst_line)
 {
 	char	*size;
 	int		i;
@@ -27,7 +27,7 @@ char	*ft_extract_size(char *fst_line)
 
 	i = 0;
 	if (*fst_line == '\0')
-		return ("0");
+		return (0);
 	while (fst_line[i] != '\n')
 		i++;
 	size = (char *)malloc(sizeof(char) * i - 3 + 1);
@@ -38,14 +38,14 @@ char	*ft_extract_size(char *fst_line)
 		j++;
 	}
 	size[j] = '\0';
-	return (size);
+	return (ft_atoi(size));
 }
 
 void	ft_initialize(char *file, t_map *map, char *buffer)
 {
 	int	size;
 
-	map->nb_lines = ft_atoi(ft_extract_size(buffer));
+	map->nb_lines = ft_extract_size(buffer);
 	size = ft_get_size(map->nb_lines);
 	map->vide = *(buffer + size);
 	map->obstacle = *(buffer + size + 1);

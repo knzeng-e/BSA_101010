@@ -6,7 +6,7 @@
 #    By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/03/10 20:19:13 by mmoullec          #+#    #+#              #
-#    Updated: 2016/03/24 00:49:56 by knzeng-e         ###   ########.fr        #
+#    Updated: 2016/03/27 08:49:23 by knzeng-e         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ SRC = ./srcs/*.c
 HEAD = ./includes
 SRC2 = *.o
 
-$(NAME): all
-
 all:
 	@$(CC) -c $(SRC) -I$(HEAD)
 	@$(CC) -o $(NAME) $(SRC2)
+
+$(NAME): all
 
 clean: $(NAME)
 	@rm $(SRC2)
