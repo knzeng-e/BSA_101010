@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_map2.c                                    :+:      :+:    :+:   */
+/*   ft_print_and_resolve.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/22 18:59:07 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 16:22:06 by mmoullec         ###   ########.fr       */
+/*   Created: 2016/03/28 00:53:37 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/28 02:45:29 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-void	ft_print_map2(t_map *map)
+void	ft_print_and_resolve(int **tab, t_map *map)
 {
-	int	k;
-	int	j;
+	t_tab place;
 
-	k = 0;
-	while (k < map->nb_lines)
-	{
-		j = 0;
-		while (j < map->nb_columns)
-			ft_putnbr(map->tempon[k][j++]);
-		ft_putchar('\n');
-		k++;
-	}
+	tab = ft_adding(map->nb_columns, map->nb_lines, tab);
+	place = ft_check_tab(tab, map->nb_columns, map->nb_lines);
+	exec(tab, place, map);
 }

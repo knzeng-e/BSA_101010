@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:10:05 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 17:07:47 by mmoullec         ###   ########.fr       */
+/*   Created: 2016/03/27 23:20:59 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/27 23:21:11 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-t_tab	check_tab(t_map *map, char **tab)
+t_tab	ft_check_tab(int **tab, int x, int y)
 {
 	t_tab	place;
 	int		i;
@@ -21,18 +21,18 @@ t_tab	check_tab(t_map *map, char **tab)
 	place.data = 0;
 	place.data_i = 0;
 	i = 0;
-	while (i < map->nb_lines)
+	while (i < y)
 	{
 		j = 0;
-		while (j < map->nb_columns)
+		while (j < x)
 		{
 			if (tab[i][j] > place.data)
 				;
-			if (map->tempon[i][j] > place.data_i)
+			if (tab[i][j] > place.data_i)
 			{
 				place.line = i;
 				place.column = j;
-				place.data_i = map->tempon[i][j];
+				place.data_i = tab[i][j];
 			}
 			j++;
 		}

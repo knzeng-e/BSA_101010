@@ -6,7 +6,7 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 23:03:22 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/27 08:45:12 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/28 02:29:43 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,12 @@ int	main(int ac, char **av)
 		map = ft_check_map(fd);
 		if ((map != NULL) && ft_check_first_line(map) > 0)
 		{
-			ret = ft_resolve(map, map->contenu, *placing);
+			ret = ft_resolve(map);
 			if (ret < 0)
 				ft_putstr("map error\n");
 		}
 		else
 			ft_putstr("map error\n");
-		free(map);
 	}
 	return (0 && (close(fd) == -1));
 }

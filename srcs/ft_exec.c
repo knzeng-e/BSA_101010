@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:13:25 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 18:08:50 by mmoullec         ###   ########.fr       */
+/*   Created: 2016/03/27 22:49:26 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/28 02:41:02 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_init(int *k, int *l, t_tab *pos)
 	*l = pos->column - (pos->data_i) + 1;
 }
 
-void	exec(t_map *map, t_tab pos, char **tab)
+void	exec(int **tab, t_tab pos, t_map *map)
 {
 	int i;
 	int j;
@@ -26,23 +26,23 @@ void	exec(t_map *map, t_tab pos, char **tab)
 	int l;
 
 	ft_init(&k, &l, &pos);
-	i = 0;
-	while (i < map->nb_lines)
+	i = -1;
+	while (++i < map->nb_lines)
 	{
 		j = 0;
 		while (j < map->nb_columns)
 		{
 			if ((k <= i && i <= pos.line) && (l <= j && j <= pos.column))
-				tab[i][j++] = map->plein;
+				ft_putchar(map->plein);
 			else
 			{
-				if (tab[i][j] == 'o')
-					tab[i][j++] = map->obstacle;
+				if (tab[i][j] == 0)
+					ft_putchar(map->obstacle);
 				else
-					tab[i][j++] = map->vide;
+					ft_putchar(map->vide);
 			}
+			j++;
 		}
-		i++;
+		ft_putstr("\n");
 	}
-	ft_print_map(map, tab);
 }

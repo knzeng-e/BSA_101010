@@ -5,30 +5,31 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:11:05 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 18:12:30 by mmoullec         ###   ########.fr       */
+/*   Created: 2016/03/27 23:05:56 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/28 01:26:29 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-void	ft_adding(t_map *map)
+int	**ft_adding(int x, int y, int **tab)
 {
 	int i;
 	int j;
 
 	i = 1;
 	j = 1;
-	while (i < map->nb_lines)
+	while (i < y)
 	{
 		j = 1;
-		while (j < map->nb_columns)
+		while (j < x)
 		{
-			if (map->tempon[i][j] != 0)
-				map->tempon[i][j] = 1 + (find_minimum2(map->tempon[i - 1][j], \
-							map->tempon[i][j - 1], map->tempon[i - 1][j - 1]));
+			if (tab[i][j] != 0)
+				tab[i][j] = 1 + (find_minimum2(tab[i - 1][j], \
+							tab[i][j - 1], tab[i - 1][j - 1]));
 			j++;
 		}
 		i++;
 	}
+	return (tab);
 }

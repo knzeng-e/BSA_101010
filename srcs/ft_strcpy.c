@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_resolve.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/12 05:16:31 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/28 02:41:51 by knzeng-e         ###   ########.fr       */
+/*   Created: 2016/03/28 02:11:22 by knzeng-e          #+#    #+#             */
+/*   Updated: 2016/03/28 02:28:22 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-int	ft_resolve(t_map *map)
+char	*ft_strcpy(char *d, char *s)
 {
-	if (ft_check_empty(map))
-		return (MAP_ERROR);
-	ft_print_and_resolve(map->tab, map);
-	return (MAP_OK);
+	int i;
+
+	i = 0;
+	while (s[i])
+	{
+		d[i] = s[i];
+		i++;
+	}
+	d[i] = '\0';
+	return (d);
 }

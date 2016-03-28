@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/09 09:24:14 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/23 18:27:18 by mmoullec         ###   ########.fr       */
+/*   Updated: 2016/03/28 02:38:04 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ typedef struct	s_plateau
 	char		vide;
 	char		obstacle;
 	char		plein;
-	char		**contenu;
-	int			**tempon;
+	int			**tab;
 }				t_map;
 
 int				ft_get_size(int nbr);
@@ -62,25 +61,27 @@ int				ft_check_first_line(t_map *map);
 int				ft_is_valid_content(char c, t_map *map);
 int				ft_check_config(t_map *map);
 int				ft_extract_map(t_map *map);
-int				ft_resolve(t_map *map, char **tab, t_tab placing);
+int				ft_resolve(t_map *map);
 int				ft_invalid_content(char c, t_map *map);
-char			find_minimum(char a, char b, char c);
+int				**ft_adding(int x, int y, int **tab);
 int				find_minimum2(int a, int b, int c);
 void			ft_putstr(char *str);
 void			ft_putchar(char c);
 void			ft_putnbr(int n);
 void			ft_initialize(char *file, t_map *map, char *buffer);
-void			ft_adding(t_map *map);
+void			ft_print_and_resolve(int **tab, t_map *map);
 void			ft_print_map(t_map *map, char **tab);
 void			ft_print_map2(t_map *map);
-void			exec(t_map *map, t_tab pos, char **tab);
+void			exec(int **tab, t_tab pos, t_map *map);
+void			ft_bsq_analyse(t_map *map, t_tab placing);
 t_map			ft_get_map(char *file_name);
 t_map			*ft_create_map(t_map *map, char *file);
 t_tab			check_tab(t_map *map, char **tab);
-void			ft_bsq_analyse(t_map *map, t_tab placing);
-t_map			*ft_create_map2();
-char			**ft_split_whitespaces(char *str);
+t_tab			ft_check_tab(int **tab, int x, int y);
 t_map			*ft_check_map(int fd);
+char			find_minimum(char a, char b, char c);
+char			**ft_split_whitespaces(char *str);
 char			*ft_strcat(char *s1, char *s2);
+char			*ft_strcpy(char *dest, char *src);
 int				ft_isspace(char c);
 #endif

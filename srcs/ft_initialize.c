@@ -6,7 +6,7 @@
 /*   By: knzeng-e <knzeng-e@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/12 05:14:59 by knzeng-e          #+#    #+#             */
-/*   Updated: 2016/03/27 08:14:22 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/28 02:19:13 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,19 @@ int		ft_extract_size(char *fst_line)
 		return (0);
 	while (fst_line[i] != '\n')
 		i++;
-	size = (char *)malloc(sizeof(char) * i - 3 + 1);
-	j = 0;
-	while (j < i - 3)
+	if ((size = (char *)malloc(sizeof(char) * i - 3 + 1)))
 	{
-		size[j] = fst_line[j];
-		j++;
+		j = 0;
+		while (j < i - 3)
+		{
+			size[j] = fst_line[j];
+			j++;
+		}
+		size[j] = '\0';
+		i = ft_atoi(size);
+		free(size);
 	}
-	size[j] = '\0';
-	return (ft_atoi(size));
+	return (i);
 }
 
 void	ft_initialize(char *file, t_map *map, char *buffer)

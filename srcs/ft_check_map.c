@@ -6,12 +6,11 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 22:52:50 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/27 08:38:08 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/28 04:05:42 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
-#include <string.h>
 
 char	*ft_get_map2(int *fd)
 {
@@ -28,11 +27,11 @@ char	*ft_get_map2(int *fd)
 		while (read(*fd, &buf, 1))
 		{
 			tmp = (char *)malloc(sizeof(char) * (i + 1));
-			rend = strcat(rend, &buf[0]);
-			tmp = strcpy(tmp, rend);
+			rend = ft_strcat(rend, &buf[0]);
+			tmp = ft_strcpy(tmp, rend);
 			free(rend);
 			rend = (char *)malloc(sizeof(char) * (i + 2));
-			rend = strcpy(rend, tmp);
+			rend = ft_strcpy(rend, tmp);
 			free(tmp);
 			i++;
 		}
@@ -40,33 +39,51 @@ char	*ft_get_map2(int *fd)
 	return (rend);
 }
 
-void	ft_get_tab(char *rend, t_map *map)
+int		ft_modify(char *rend, t_map *map)
 {
-	int i;
-	int	j;
 	int	cpt;
+	int	i;
+	int	j;
 
-	if (!(map->contenu = (char **)malloc(sizeof(char*) * map->nb_lines)))
-		return ;
+	cpt = 0;
+	i = -1;
+	while (*(rend + ++cpt))
+	{
+		++i;
+		if ((i >= map->nb_lines) || !(map->tab[i] = (int *)malloc(sizeof(int)\
+						* map->nb_columns)))
+			return (-4);
+		else
+		{
+			j = 0;
+			while (*(rend + cpt) != '\n')
+			{
+				if (!ft_is_valid_content(*(rend + cpt), map) || \
+						j >= map->nb_columns)
+					return (-1);
+				map->tab[i][j++] = (*(rend + cpt++) == map->vide) ? 1 : 0;
+			}
+		}
+	}
+	return (1);
+}
+
+int		ft_get_tab(char *rend, t_map *map)
+{
+	int		i;
+	int		j;
+
+	if (!(map->tab = (int **)malloc(sizeof(int*) * map->nb_lines)))
+		return (-3);
 	if (!(map->infos = (char *)malloc(sizeof(char) * \
 					(ft_get_size(map->nb_lines) + 4))))
-		return ;
+		return (-2);
 	j = 0;
 	while (*rend != '\n')
 		map->infos[j++] = *(rend++);
-	cpt = 1;
 	map->infos[j] = '\0';
-	i = 0;
-	while (*(rend + cpt))
-	{
-		if (!(map->contenu[i] = (char *)malloc(sizeof(char) * map->nb_columns)))
-			return ;
-		j = 0;
-		while (j < map->nb_columns)
-			map->contenu[i][j++] = *(rend + cpt++);
-		map->contenu[i++][j] = '\0';
-		cpt++;
-	}
+	i = -1;
+	return (ft_modify(rend, map));
 }
 
 t_map	*ft_check_map(int fd)
@@ -81,8 +98,7 @@ t_map	*ft_check_map(int fd)
 	if (!(map = (t_map *)malloc(sizeof(t_map))))
 		return (IMPOSSIBLE_MALLOC);
 	map = ft_create_map(map, rend);
-	if (!ft_check_empty(map))
-		ft_get_tab(rend, map);
-	free(rend);
+	if (ft_check_empty(map) || (ft_get_tab(rend, map) < 0))
+		return (NULL);
 	return (map);
 }
