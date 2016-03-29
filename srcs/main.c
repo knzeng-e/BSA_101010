@@ -6,7 +6,7 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 23:03:22 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/28 02:29:43 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/29 17:35:35 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int ac, char **av)
 	{
 		if (!(map = malloc(sizeof(t_map))))
 			return (IMPOSSIBLE_MALLOC);
-		fd = ((ac == 1) ? ac-- : open(av[i + 1], O_RDONLY));
+		fd = ((ac == 1) ? (1 - ac--) : open(av[i + 1], O_RDONLY));
 		map = ft_check_map(fd);
 		if ((map != NULL) && ft_check_first_line(map) > 0)
 		{
