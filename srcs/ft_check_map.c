@@ -6,7 +6,7 @@
 /*   By: mmoullec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/14 22:52:50 by mmoullec          #+#    #+#             */
-/*   Updated: 2016/03/29 16:36:09 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2016/03/30 06:30:33 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,18 @@ int		ft_modify(char *rend, t_map *map)
 		if ((i >= map->nb_lines) || !(map->tab[i] = (int *)malloc(sizeof(int)\
 						* map->nb_columns)))
 			return (-4);
-		else
+		j = 0;
+		while (*(rend + cpt) != '\n')
 		{
-			j = 0;
-			while (*(rend + cpt) != '\n')
-			{
-				if (!ft_is_valid_content(*(rend + cpt), map) || \
-						j >= map->nb_columns)
-					return (-1);
-				map->tab[i][j++] = (*(rend + cpt++) == map->vide) ? 1 : 0;
-			}
+			if (!ft_is_valid_content(*(rend + cpt), map) || \
+					j >= map->nb_columns)
+				return (-1);
+			map->tab[i][j++] = (*(rend + cpt++) == map->vide) ? 1 : 0;
 		}
+		if (j != map->nb_columns)
+			return (-4);
 	}
-	return (1);
+	return ((i != map->nb_lines - 1) ? -4 : 1);
 }
 
 int		ft_get_tab(char *rend, t_map *map)
